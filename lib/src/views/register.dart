@@ -3,7 +3,10 @@ import 'package:antry/src/views/login.dart';
 import 'package:flutter/material.dart';
 import 'package:dropdown_textfield/dropdown_textfield.dart';
 import '../components/tField.dart';
+import '../services/network/loginRegister.dart';
+import '../services/storage/userRegister.dart';
 
+LoginRegister register = LoginRegister();
 class Register extends StatefulWidget {
   const Register({super.key});
 //color(0xfff2735b) orangered
@@ -32,7 +35,8 @@ class _RegisterState extends State<Register> {
     branchController = SingleValueDropDownController();
     semesterController = SingleValueDropDownController();
   }
-   final _globalKey = GlobalKey<FormState>();
+
+  final _globalKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,6 +63,7 @@ class _RegisterState extends State<Register> {
               "Register",
               style: TextStyle(
                 fontSize: 35,
+                color: Color(0xfff2735b),
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -104,37 +109,31 @@ class _RegisterState extends State<Register> {
                   const SizedBox(
                     height: 20,
                   ),
-                  SizedBox(
-                    height: 55,
-                    child: DropDownTextField(
-                      textFieldDecoration: InputDecoration(
-                        labelText: "Course",
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        labelStyle: const TextStyle(
-                          color: Color.fromARGB(255, 128, 127, 127),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: Colors.black),
-                        ),
+                  DropDownTextField(
+                    textFieldDecoration: InputDecoration(
+                      isDense: true, // Added this
+                      contentPadding: const EdgeInsets.all(16),
+                      errorText: _errorText(courseController),
+                      labelText: "Course",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      controller: courseController,
-                      clearOption: false,
-                      validator: (value) {
-                        if (value == null) {
-                          return "Required field";
-                        } else {
-                          return null;
-                        }
-                      },
-                      dropDownIconProperty: IconProperty(
-                          size: 30,
-                          color: const Color.fromARGB(255, 128, 127, 127)),
-                      dropDownItemCount: 4,
-                      dropDownList: courseList,
+                      labelStyle: const TextStyle(
+                        color: Color.fromARGB(255, 128, 127, 127),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: Colors.black),
+                      ),
                     ),
+                    controller: courseController,
+                    clearOption: false,
+                    dropDownIconProperty: IconProperty(
+                        size: 30,
+                        color: const Color.fromARGB(255, 128, 127, 127)),
+                    dropDownItemCount: 4,
+                    dropDownList: courseList,
+                    onChanged: (_) => setState(() {}),
                   ),
                   const SizedBox(
                     height: 20,
@@ -142,74 +141,62 @@ class _RegisterState extends State<Register> {
                   Row(
                     children: [
                       Expanded(
-                        child: SizedBox(
-                          height: 55,
-                          child: DropDownTextField(
-                            textFieldDecoration: InputDecoration(
-                              labelText: "Branch",
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              labelStyle: const TextStyle(
-                                color: Color.fromARGB(255, 128, 127, 127),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: const BorderSide(color: Colors.black),
-                              ),
+                        child: DropDownTextField(
+                          textFieldDecoration: InputDecoration(
+                            isDense: true, // Added this
+                            contentPadding: const EdgeInsets.all(16),
+                            errorText: _errorText(branchController),
+                            labelText: "Branch",
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                            controller: branchController,
-                            clearOption: false,
-                            validator: (value) {
-                              if (value == null) {
-                                return "Required field";
-                              } else {
-                                return null;
-                              }
-                            },
-                            dropDownIconProperty: IconProperty(
-                                size: 30,
-                                color: const Color.fromARGB(255, 128, 127, 127)),
-                            dropDownItemCount: 4,
-                            dropDownList: branchList,
+                            labelStyle: const TextStyle(
+                              color: Color.fromARGB(255, 128, 127, 127),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: const BorderSide(color: Colors.black),
+                            ),
                           ),
+                          controller: branchController,
+                          clearOption: false,
+                          dropDownIconProperty: IconProperty(
+                              size: 30,
+                              color: const Color.fromARGB(255, 128, 127, 127)),
+                          dropDownItemCount: 4,
+                          dropDownList: branchList,
+                          onChanged: (_) => setState(() {}),
                         ),
                       ),
                       const SizedBox(
                         width: 10,
                       ),
                       Expanded(
-                        child: SizedBox(
-                          height: 55,
-                          child: DropDownTextField(
-                            textFieldDecoration: InputDecoration(
-                              labelText: "Semester",
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              labelStyle: const TextStyle(
-                                color: Color.fromARGB(255, 128, 127, 127),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: const BorderSide(color: Colors.black),
-                              ),
+                        child: DropDownTextField(
+                          textFieldDecoration: InputDecoration(
+                            isDense: true, // Added this
+                            contentPadding: const EdgeInsets.all(16),
+                            errorText: _errorText(semesterController),
+                            labelText: "Semester",
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                            controller: semesterController,
-                            clearOption: false,
-                            validator: (value) {
-                              if (value == null) {
-                                return "Required field";
-                              } else {
-                                return null;
-                              }
-                            },
-                            dropDownIconProperty: IconProperty(
-                                size: 30,
-                                color: const Color.fromARGB(255, 128, 127, 127)),
-                            dropDownItemCount: 4,
-                            dropDownList: semesterList,
+                            labelStyle: const TextStyle(
+                              color: Color.fromARGB(255, 128, 127, 127),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: const BorderSide(color: Colors.black),
+                            ),
                           ),
+                          controller: semesterController,
+                          clearOption: false,
+                          dropDownIconProperty: IconProperty(
+                              size: 30,
+                              color: const Color.fromARGB(255, 128, 127, 127)),
+                          dropDownItemCount: 4,
+                          dropDownList: semesterList,
+                          onChanged: (_) => setState(() {}),
                         ),
                       ),
                     ],
@@ -218,7 +205,31 @@ class _RegisterState extends State<Register> {
                     height: 40,
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                     // showSpinner = true;
+                      setState(() {
+                        if (_globalKey.currentState!.validate() &&
+                            courseController.dropDownValue!.value.isNotEmpty &&
+                            branchController.dropDownValue!.value.isNotEmpty &&
+                            semesterController
+                                .dropDownValue!.value.isNotEmpty) {
+                          String name =
+                              "${firstNameController.text} ${lastNameController.text}";
+                          String sem = semesterController.dropDownValue!.value;
+                          register.createUser(UserRegister(
+                              id: rollIdController.text,
+                              fullname: name,
+                              contact: phoneController.text,
+                              course: courseController.dropDownValue!.value
+                                  .toString(),
+                              branch: branchController.dropDownValue!.value
+                                  .toString(),
+                              semester: int.parse(sem)));
+                        } else {
+                          debugPrint("Not Validated");
+                        }
+                      });
+                    },
                     style: ButtonStyle(
                       minimumSize: MaterialStateProperty.all<Size>(
                         const Size(double.infinity, 40),
@@ -226,7 +237,8 @@ class _RegisterState extends State<Register> {
                       maximumSize: MaterialStateProperty.all<Size>(
                         const Size(double.infinity, 50),
                       ),
-                      backgroundColor: MaterialStateProperty.all(Colors.black),
+                      backgroundColor:
+                          MaterialStateProperty.all(const Color(0xfff2735b)),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
@@ -284,5 +296,12 @@ class _RegisterState extends State<Register> {
         ],
       ),
     );
+  }
+
+  String? _errorText(SingleValueDropDownController sd) {
+    if (sd.dropDownValue?.value == null) {
+      return 'Can\'t be empty';
+    }
+    return null;
   }
 }

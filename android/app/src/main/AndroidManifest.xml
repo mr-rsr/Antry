@@ -2,7 +2,7 @@
     package="com.example.antry">
    <uses-permission android:name="android.permission.CAMERA" />
    <application
-        android:label="antry"
+        android:label="Antry"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

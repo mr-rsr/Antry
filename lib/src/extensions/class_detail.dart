@@ -19,20 +19,20 @@ List<DropDownValueModel> courseList = const <DropDownValueModel>[
 ];
 
 List<DropDownValueModel> semesterList = const <DropDownValueModel>[
-  DropDownValueModel(name: '1st', value: "1st"),
+  DropDownValueModel(name: '1st', value: "1"),
   DropDownValueModel(
     name: '2nd',
-    value: "2nd",
+    value: "2",
   ),
-  DropDownValueModel(name: '3rd', value: "3rd"),
+  DropDownValueModel(name: '3rd', value: "3"),
   DropDownValueModel(
     name: '4th',
-    value: "4th",
+    value: "4",
   ),
-  DropDownValueModel(name: '5th', value: "5th"),
-  DropDownValueModel(name: '6th', value: "6th"),
-  DropDownValueModel(name: '7th', value: "7th"),
-  DropDownValueModel(name: '8th', value: "8th")
+  DropDownValueModel(name: '5th', value: "5"),
+  DropDownValueModel(name: '6th', value: "6"),
+  DropDownValueModel(name: '7th', value: "7"),
+  DropDownValueModel(name: '8th', value: "8")
 ];
 
 List<DropDownValueModel> branchList = const <DropDownValueModel>[

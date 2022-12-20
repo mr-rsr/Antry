@@ -1,6 +1,10 @@
+import 'package:antry/src/services/network/loginRegister.dart';
+import 'package:antry/src/views/register.dart';
 import 'package:flutter/material.dart';
 
 import 'login.dart';
+
+LoginRegister register = LoginRegister();
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -18,13 +22,13 @@ class _SplashScreen extends State<SplashScreen> {
   @override
   void initState() {
     Future.delayed(Duration(seconds: splashtime), () async {
-        Navigator.pushReplacement(context, MaterialPageRoute(
+      Navigator.pushReplacement(context, MaterialPageRoute(
           //pushReplacement = replacing the route so that
           //splash screen won't show on back button press
           //navigation to Home page.
-          builder: (context){
-              return const Login();
-        }));
+          builder: (context) {
+        return const Login();
+      }));
     });
 
     super.initState();
@@ -46,23 +50,21 @@ class _SplashScreen extends State<SplashScreen> {
                 // ),
                 Image.asset("assets/images/QrSplash.gif",
                     width: 250, height: 350),
-                   const SizedBox(
-                      height: 30,
+                const SizedBox(
+                  height: 30,
+                ),
+                Column(children: <Widget>[
+                  Image.asset("assets/images/logoBlack.png"),
+                  const Text(
+                    "Scan & Enter",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
                     ),
-                    Column(
-                      children: <Widget>[
-     
-                Image.asset("assets/images/logoBlack.png"),
-                const Text("Scan & Enter",style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-              
-                ),)
-                            ]
-               
-         ) ]),
-              
+                  )
+                ])
+              ]),
         ));
   }
 }
