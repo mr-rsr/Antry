@@ -2,7 +2,9 @@ import 'package:antry/src/extensions/class_detail.dart';
 import 'package:antry/src/views/login.dart';
 import 'package:flutter/material.dart';
 import 'package:dropdown_textfield/dropdown_textfield.dart';
+import 'package:provider/provider.dart';
 import '../components/tField.dart';
+import '../provider/registerProvider.dart';
 import '../services/network/loginRegister.dart';
 import '../services/storage/userRegister.dart';
 
@@ -39,6 +41,7 @@ class _RegisterState extends State<Register> {
   final _globalKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    final registerProvider=Provider.of<RegisterProvider>(context,listen: false);
     return Scaffold(
       backgroundColor: Colors.white,
       body: ListView(
@@ -216,7 +219,7 @@ class _RegisterState extends State<Register> {
                           String name =
                               "${firstNameController.text} ${lastNameController.text}";
                           String sem = semesterController.dropDownValue!.value;
-                          register.createUser(UserRegister(
+                          registerProvider.getRegisterData(UserRegister(
                               id: rollIdController.text,
                               fullname: name,
                               contact: phoneController.text,

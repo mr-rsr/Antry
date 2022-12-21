@@ -1,9 +1,12 @@
 import 'package:antry/src/services/network/loginRegister.dart';
+import 'package:antry/src/services/storage/sharedPreferences/TokenSp.dart';
+import 'package:antry/src/views/dashBoard.dart';
 import 'package:antry/src/views/register.dart';
 import 'package:flutter/material.dart';
 
 import 'login.dart';
 
+final TokenSp tokenSp = TokenSp();
 LoginRegister register = LoginRegister();
 
 class SplashScreen extends StatefulWidget {
@@ -18,19 +21,41 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreen extends State<SplashScreen> {
   int splashtime = 2;
   // duration of splash screen on second
+  checkTokenAvailability() async {
+    bool token = await tokenSp.checkToken();
+    if (token == true) {
+      Future.delayed(Duration(seconds: splashtime), () async {
+        Navigator.pushReplacement(context, MaterialPageRoute(
+            //pushReplacement = replacing the route so that
+            //splash screen won't show on back button press
+            //navigation to Home page.
+            builder: (context) {
+          debugPrint(token.toString());
+          // ignore: unrelated_type_equality_checks
+          return const DashBoard();
+        }));
+      });
+      return token;
+    }
+    else 
+    {
+      Future.delayed(Duration(seconds: splashtime), () async {
+        Navigator.pushReplacement(context, MaterialPageRoute(
+            //pushReplacement = replacing the route so that
+            //splash screen won't show on back button press
+            //navigation to Home page.
+            builder: (context) {
+          // ignore: unrelated_type_equality_checks
+          return const Login();
+        }));
+      });
+    }
+  }
 
   @override
   void initState() {
-    Future.delayed(Duration(seconds: splashtime), () async {
-      Navigator.pushReplacement(context, MaterialPageRoute(
-          //pushReplacement = replacing the route so that
-          //splash screen won't show on back button press
-          //navigation to Home page.
-          builder: (context) {
-        return const Login();
-      }));
-    });
-
+    
+checkTokenAvailability();
     super.initState();
   }
 

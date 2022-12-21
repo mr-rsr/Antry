@@ -1,7 +1,9 @@
 import 'package:antry/src/views/dashBoard.dart';
 import 'package:antry/src/views/register.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../provider/loginProvider.dart';
 import '../services/network/loginRegister.dart';
 import '../services/storage/userLogin.dart';
 
@@ -19,11 +21,13 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
   final phoneController = TextEditingController();
   final passController = TextEditingController();
   late TabController _tabController;
-  final visitorname=TextEditingController();
+  final visitorname = TextEditingController();
   final visitorPhoneController = TextEditingController();
-  final visitorCity= TextEditingController();
+  final visitorCity = TextEditingController();
 
   bool isPassVisible = false;
+  
+  //get loginProvider => null;
   @override
   void initState() {
     super.initState();
@@ -31,13 +35,14 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
     phoneController.addListener(() => setState(() {}));
     passController.addListener(() => setState(() {}));
     visitorPhoneController.addListener(() => setState(() {}));
-     visitorCity.addListener(() => setState(() {}));
-      visitorname.addListener(() => setState(() {}));
+    visitorCity.addListener(() => setState(() {}));
+    visitorname.addListener(() => setState(() {}));
   }
 
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+   
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
@@ -69,175 +74,6 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
             const SizedBox(
               height: 20,
             ),
-            // Padding(
-            //   padding: const EdgeInsets.all(8.0),
-            //   child: Form(
-            //     key: _formKey,
-            //     child: Column(
-            //       children: <Widget>[
-            //         TextFormField(
-            //           validator: (value) {
-            //             if (value == null || value.isEmpty) {
-            //               return 'Please enter phone number';
-            //             }
-            //             if (value.length < 10) {
-            //               return 'Please enter valid phone number';
-            //             }
-            //             return null;
-            //           },
-            //           keyboardType: TextInputType.phone,
-            //           controller: phoneController,
-            //           decoration: InputDecoration(
-            //             labelText: "Phone Number",
-            //             border: OutlineInputBorder(
-            //               borderRadius: BorderRadius.circular(10),
-            //             ),
-            //             prefixIcon: const Icon(
-            //               Icons.call,
-            //               color: Color.fromARGB(255, 128, 127, 127),
-            //             ),
-            //             suffixIcon: phoneController.text.isEmpty
-            //                 ? Container(
-            //                     width: 0,
-            //                   )
-            //                 : IconButton(
-            //                     onPressed: () => phoneController.clear(),
-            //                     icon: const Icon(
-            //                       Icons.close,
-            //                       color: Color.fromARGB(255, 128, 127, 127),
-            //                     )),
-            //             labelStyle: const TextStyle(
-            //               color: Color.fromARGB(255, 128, 127, 127),
-            //             ),
-            //             focusedBorder: OutlineInputBorder(
-            //               borderRadius: BorderRadius.circular(10),
-            //               borderSide: const BorderSide(color: Colors.black),
-            //             ),
-            //           ),
-            //         ),
-            //         const SizedBox(
-            //           height: 20,
-            //         ),
-            //         TextFormField(
-            //           controller: passController,
-            //           obscureText: !isPassVisible,
-            //           decoration: InputDecoration(
-            //             labelText: "Password",
-            //             border: OutlineInputBorder(
-            //               borderRadius: BorderRadius.circular(10),
-            //             ),
-            //             prefixIcon: const Icon(
-            //               Icons.lock,
-            //               color: Color.fromARGB(255, 128, 127, 127),
-            //             ),
-            //             suffixIcon: IconButton(
-            //                 onPressed: () {
-            //                   setState(() {
-            //                     isPassVisible = !isPassVisible;
-            //                   });
-            //                 },
-            //                 icon: isPassVisible
-            //                     ? const Icon(
-            //                         Icons.visibility_off,
-            //                         color: Color.fromARGB(255, 128, 127, 127),
-            //                       )
-            //                     : const Icon(
-            //                         Icons.visibility,
-            //                         color: Color.fromARGB(255, 128, 127, 127),
-            //                       )),
-            //             labelStyle: const TextStyle(
-            //               color: Color.fromARGB(255, 128, 127, 127),
-            //             ),
-            //             focusedBorder: OutlineInputBorder(
-            //               borderRadius: BorderRadius.circular(10),
-            //               borderSide: const BorderSide(color: Colors.black),
-            //             ),
-            //           ),
-            //         ),
-            //         const SizedBox(
-            //           height: 20,
-            //         ),
-            //         const SizedBox(
-            //           height: 40,
-            //         ),
-            //         ElevatedButton(
-            //           onPressed: () {
-            //             setState(() {
-            //               if (_formKey.currentState!.validate() ||
-            //                   phoneController.text.length == 10) {
-            //                 loginRegister.userLogin(UserLogin(
-            //                     contactno: phoneController.text,
-            //                     rollid: passController.text));
-            //                 debugPrint(phoneController.text);
-            //                 debugPrint(passController.text);
-            //               }
-            //             });
-            //           },
-            //           style: ButtonStyle(
-            //             minimumSize: MaterialStateProperty.all<Size>(
-            //               const Size(double.infinity, 40),
-            //             ),
-            //             maximumSize: MaterialStateProperty.all<Size>(
-            //               const Size(double.infinity, 50),
-            //             ),
-            //             backgroundColor: MaterialStateProperty.all(
-            //               const Color(0xffff735b),
-            //             ),
-            //             shape:
-            //                 MaterialStateProperty.all<RoundedRectangleBorder>(
-            //               RoundedRectangleBorder(
-            //                 borderRadius: BorderRadius.circular(10.0),
-            //               ),
-            //             ),
-            //           ),
-            //           child: const Center(
-            //             child: Text(
-            //               "Login",
-            //               style: TextStyle(
-            //                 fontSize: 18,
-            //                 color: Colors.white,
-            //                 fontWeight: FontWeight.bold,
-            //               ),
-            //             ),
-            //           ),
-            //         ),
-            //         const SizedBox(
-            //           height: 30,
-            //         ),
-            //         Row(
-            //           mainAxisAlignment: MainAxisAlignment.center,
-            //           children: <Widget>[
-            //             const Text(
-            //               "Don't have an account?",
-            //               style: TextStyle(
-            //                 color: Colors.black,
-            //               ),
-            //             ),
-            //             TextButton(
-            //               onPressed: () {
-            //                 setState(() {
-            //                   Navigator.push(
-            //                     context,
-            //                     MaterialPageRoute(
-            //                       builder: (context) => const Register(),
-            //                     ),
-            //                   );
-            //                 });
-            //               },
-            //               child: const Text(
-            //                 "Register",
-            //                 style: TextStyle(
-            //                   color: Colors.black,
-            //                   fontWeight: FontWeight.bold,
-            //                 ),
-            //               ),
-            //             ),
-            //           ],
-            //         ),
-            //       ],
-            //     ),
-            //   ),
-            // ),
             SizedBox(
               height: 400,
               child: Column(
@@ -289,23 +125,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                   Expanded(
                     child: Container(
                       decoration: const BoxDecoration(
-                          // border: Border(
-                          //   //left:
-                          //   left: BorderSide(
-                          //     color: Colors.grey[500]!,
-                          //     width: 1,
-                          //   ),
-                          //   right: BorderSide(
-                          //     color: Colors.grey[500]!,
-                          //     width: 1,
-                          //   ),
-                          //   bottom: BorderSide(
-                          //     color: Colors.grey[500]!,
-                          //     width: 1,
-                          //   ),
-                          // ),
-                          //color: Colors.black,
-                          // borderRadius: BorderRadius.circular(11)
+                         
                           ),
                       child: TabBarView(
                         physics: const NeverScrollableScrollPhysics(),
@@ -329,7 +149,9 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
     );
   }
 
+
   Widget studentlogin() {
+     final loginProvider = Provider.of<LoginDataProvider>(context,listen: false);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -430,12 +252,21 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
           ElevatedButton(
             onPressed: () {
               setState(() {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const DashBoard(),
-                  ),
-                );
+                //_formKey.currentState!.validate() ||
+                if (phoneController.text.length == 10) {
+                 loginProvider.getUserData(UserLogin(
+                      contactno: phoneController.text,
+                      rollid: passController.text));
+                  debugPrint(phoneController.text);
+                  debugPrint(passController.text);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const DashBoard(),
+                    ),
+                  );
+                }
+
                 // if (_formKey.currentState!.validate() ||
                 //     phoneController.text.length == 10) {
                 //   loginRegister.userLogin(UserLogin(
@@ -512,6 +343,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
   }
 
   Widget visitorlogin() {
+    final loginProvider = Provider.of<LoginDataProvider>(context,listen: false);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -610,9 +442,9 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
             height: 20,
           ),
           TextFormField(
-            controller:visitorCity,
-           keyboardType: TextInputType.streetAddress,
-           textInputAction: TextInputAction.done,
+            controller: visitorCity,
+            keyboardType: TextInputType.streetAddress,
+            textInputAction: TextInputAction.done,
             decoration: InputDecoration(
               // isDense: true, // Added this
               contentPadding: const EdgeInsets.all(16),
@@ -624,7 +456,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                 Icons.location_city,
                 color: Color.fromARGB(255, 128, 127, 127),
               ),
-               suffixIcon: visitorCity.text.isEmpty
+              suffixIcon: visitorCity.text.isEmpty
                   ? Container(
                       width: 0,
                     )
@@ -633,7 +465,8 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                       icon: const Icon(
                         Icons.close,
                         color: Color.fromARGB(255, 128, 127, 127),
-                      ),),
+                      ),
+                    ),
               labelStyle: const TextStyle(
                 color: Color.fromARGB(255, 128, 127, 127),
               ),
@@ -652,20 +485,20 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
           ElevatedButton(
             onPressed: () {
               setState(() {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const DashBoard(),
-                  ),
-                );
-                // if (_formKey.currentState!.validate() ||
-                //     phoneController.text.length == 10) {
-                //   loginRegister.userLogin(UserLogin(
-                //       contactno: phoneController.text,
-                //       rollid: passController.text));
-                //   debugPrint(phoneController.text);
-                //   debugPrint(passController.text);
-                // }
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => const DashBoard(),
+                //   ),
+                // );
+                if (_formKey.currentState!.validate() ||
+                    phoneController.text.length == 10) {
+                  loginProvider.getUserData(UserLogin(
+                      contactno: phoneController.text,
+                      rollid: passController.text));
+                  debugPrint(phoneController.text);
+                  debugPrint(passController.text);
+                }
               });
             },
             style: ButtonStyle(
