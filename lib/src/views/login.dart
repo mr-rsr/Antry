@@ -2,15 +2,12 @@ import 'package:antry/src/views/dashBoard.dart';
 import 'package:antry/src/views/register.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../provider/loginProvider.dart';
 import '../services/network/loginRegister.dart';
 import '../services/storage/userLogin.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
-//Color(0xfff2725e) orangered
-//color(0xffe6e6e6)
   @override
   State<Login> createState() => _LoginState();
 }
@@ -26,8 +23,6 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
   final visitorCity = TextEditingController();
 
   bool isPassVisible = false;
-  
-  //get loginProvider => null;
   @override
   void initState() {
     super.initState();
@@ -47,8 +42,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
       backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.fromLTRB(8.0, 0, 8, 0),
-        child: ListView(
-          // crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(      
           children: <Widget>[
             const SizedBox(height: 10),
             const Padding(
@@ -88,16 +82,12 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                     child: TabBar(
                       unselectedLabelStyle: const TextStyle(fontSize: 15),
                       unselectedLabelColor: Colors.black54,
-                      //indicatorColor: const Color(0xffff735b),
                       indicator: const BoxDecoration(
-                        color: Color(0xffff735b),
-                        // color: Color(0xffff735b),
+                        color: Color(0xffff735b),    
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(10),
                             topRight: Radius.circular(10)),
-                      ),
-
-                      // indicatorWeight: 3,
+                      ),                   
                       labelColor: Colors.white,
                       controller: _tabController,
                       tabs: const <Widget>[
@@ -140,15 +130,11 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                 ],
               ),
             ),
-            // const SizedBox(
-            //   height: 10,
-            // ),
           ],
         ),
       ),
     );
   }
-
 
   Widget studentlogin() {
      final loginProvider = Provider.of<LoginDataProvider>(context,listen: false);
@@ -171,8 +157,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
             },
             keyboardType: TextInputType.phone,
             controller: phoneController,
-            decoration: InputDecoration(
-              // isDense: true, // Added this
+            decoration: InputDecoration(   
               contentPadding: const EdgeInsets.all(16),
               labelText: "Phone Number",
               border: OutlineInputBorder(
@@ -207,8 +192,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
           TextFormField(
             controller: passController,
             obscureText: !isPassVisible,
-            decoration: InputDecoration(
-              // isDense: true, // Added this
+            decoration: InputDecoration(  
               contentPadding: const EdgeInsets.all(16),
               labelText: "Password",
               border: OutlineInputBorder(
@@ -243,16 +227,12 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
               ),
             ),
           ),
-          // const SizedBox(
-          //   height: 20,
-          // ),
           const SizedBox(
             height: 35,
           ),
           ElevatedButton(
             onPressed: () {
-              setState(() {
-                //_formKey.currentState!.validate() ||
+              setState(() {    
                 if (phoneController.text.length == 10) {
                  loginProvider.getUserData(UserLogin(
                       contactno: phoneController.text,
@@ -266,15 +246,6 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                     ),
                   );
                 }
-
-                // if (_formKey.currentState!.validate() ||
-                //     phoneController.text.length == 10) {
-                //   loginRegister.userLogin(UserLogin(
-                //       contactno: phoneController.text,
-                //       rollid: passController.text));
-                //   debugPrint(phoneController.text);
-                //   debugPrint(passController.text);
-                // }
               });
             },
             style: ButtonStyle(
@@ -362,7 +333,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
             controller: visitorname,
             textInputAction: TextInputAction.next,
             decoration: InputDecoration(
-              // isDense: true, // Added this
+              
               contentPadding: const EdgeInsets.all(16),
               labelText: "Name",
               border: OutlineInputBorder(
@@ -409,7 +380,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
             controller: visitorPhoneController,
             textInputAction: TextInputAction.next,
             decoration: InputDecoration(
-              // isDense: true, // Added this
+              
               contentPadding: const EdgeInsets.all(16),
               labelText: "Phone Number",
               border: OutlineInputBorder(
@@ -446,7 +417,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
             keyboardType: TextInputType.streetAddress,
             textInputAction: TextInputAction.done,
             decoration: InputDecoration(
-              // isDense: true, // Added this
+              
               contentPadding: const EdgeInsets.all(16),
               labelText: "City",
               border: OutlineInputBorder(
@@ -476,21 +447,12 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
               ),
             ),
           ),
-          // const SizedBox(
-          //   height: 20,
-          // ),
           const SizedBox(
             height: 35,
           ),
           ElevatedButton(
             onPressed: () {
               setState(() {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => const DashBoard(),
-                //   ),
-                // );
                 if (_formKey.currentState!.validate() ||
                     phoneController.text.length == 10) {
                   loginProvider.getUserData(UserLogin(
