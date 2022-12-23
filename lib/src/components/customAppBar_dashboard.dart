@@ -1,5 +1,8 @@
+import 'package:antry/src/models/user.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../provider/loginProvider.dart';
 import '../views/profile.dart';
 import 'bottom_curve_cipper.dart';
 
@@ -10,6 +13,7 @@ class CustomAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loginProvider = Provider.of<LoginDataProvider>(context);
     return ClipPath(
       clipper: MyClipper(),
       child: Container(
@@ -67,11 +71,12 @@ class CustomAppBar extends StatelessWidget {
                 ),
               ),
             ),
-            const Padding(
+             const Padding(
               padding: EdgeInsets.only(top: 20.0),
               child: Text(
-                'Raj Aryan',
-                style: TextStyle(
+                //loginProvider.fullname,
+                "Raj Aryan",
+                style:TextStyle(
                   color: Colors.white,
                   fontSize: 30,
                   fontWeight: FontWeight.bold,

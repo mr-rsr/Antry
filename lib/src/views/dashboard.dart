@@ -1,7 +1,9 @@
 import 'package:antry/src/views/qrScanner.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../components/customAppBar_dashboard.dart';
+import '../provider/loginProvider.dart';
 
 class DashBoard extends StatefulWidget {
   const DashBoard({super.key});
@@ -13,6 +15,7 @@ class DashBoard extends StatefulWidget {
 class _DashBoardState extends State<DashBoard> {
   @override
   Widget build(BuildContext context) {
+    final loginProvider = Provider.of<LoginDataProvider>(context,listen: false);
     return Scaffold(
       appBar: const PreferredSize(
           preferredSize: Size.fromHeight(300), child: CustomAppBar()),
@@ -39,7 +42,7 @@ class _DashBoardState extends State<DashBoard> {
       ),
       body: Theme(
         data: ThemeData(
-          primaryColor: Color(0xfff2735b),
+          primaryColor:const Color(0xfff2735b),
           colorScheme:
               ColorScheme.fromSwatch().copyWith(secondary: Colors.black),
         ),

@@ -1,6 +1,8 @@
 // ignore: file_names
 //import 'dart:io';
 
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import '../../models/UserData.dart';
@@ -18,7 +20,7 @@ class LoginRegister {
     connectTimeout: 30000,
     baseUrl: baseUrl,
     responseType: ResponseType.json,
-    //contentType: ContentType.json.toString(),
+    contentType: ContentType.json.toString(),
   ));
 
 //hostel http://10.60.42.160:5252
