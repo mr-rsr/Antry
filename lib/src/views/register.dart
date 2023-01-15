@@ -7,8 +7,10 @@ import '../components/tField.dart';
 import '../provider/registerProvider.dart';
 import '../services/network/loginRegister.dart';
 import '../services/storage/userRegister.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 LoginRegister register = LoginRegister();
+
 class Register extends StatefulWidget {
   const Register({super.key});
 //color(0xfff2735b) orangered
@@ -41,7 +43,8 @@ class _RegisterState extends State<Register> {
   final _globalKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    final registerProvider=Provider.of<RegisterProvider>(context,listen: false);
+    final registerProvider =
+        Provider.of<RegisterProvider>(context, listen: false);
     return Scaffold(
       backgroundColor: Colors.white,
       body: ListView(
@@ -209,7 +212,7 @@ class _RegisterState extends State<Register> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                     // showSpinner = true;
+                      // showSpinner = true;
                       setState(() {
                         if (_globalKey.currentState!.validate() &&
                             courseController.dropDownValue!.value.isNotEmpty &&
@@ -219,15 +222,18 @@ class _RegisterState extends State<Register> {
                           String name =
                               "${firstNameController.text} ${lastNameController.text}";
                           String sem = semesterController.dropDownValue!.value;
-                          registerProvider.getRegisterData(UserRegister(
-                              id: rollIdController.text,
-                              fullname: name,
-                              contact: phoneController.text,
-                              course: courseController.dropDownValue!.value
-                                  .toString(),
-                              branch: branchController.dropDownValue!.value
-                                  .toString(),
-                              semester: int.parse(sem)));
+
+                          registerProvider.getRegisterData(
+                              UserRegister(
+                                  id: rollIdController.text,
+                                  fullname: name,
+                                  contact: phoneController.text,
+                                  course: courseController.dropDownValue!.value
+                                      .toString(),
+                                  branch: branchController.dropDownValue!.value
+                                      .toString(),
+                                  semester: int.parse(sem)),
+                              context);
                         } else {
                           debugPrint("Not Validated");
                         }
@@ -299,6 +305,67 @@ class _RegisterState extends State<Register> {
         ],
       ),
     );
+  }
+
+  showDialogBox(BuildContext context) {
+    final registerProvider =
+        Provider.of<RegisterProvider>(context, listen: false);
+    return showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return Center(
+            child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: AlertDialog(
+                  backgroundColor: const Color(0xffeeeded),
+                  icon: Center(
+                      child: registerProvider.loading == true
+                          ? Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: const [
+                                CircularProgressIndicator(
+                                  color: Color(0xfff2735b),
+                                ),
+                                SizedBox(
+                                  width: 30,
+                                ),
+                                Text(
+                                  "Registering...",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontFamily: "Roboto",
+                                      fontSize: 15),
+                                )
+                              ],
+                            )
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: const [
+                                Icon(
+                                  Icons.check_circle,
+                                  color: Color(0xfff2735b),
+                                  size: 30,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  "Succesfully Registered",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontFamily: "Roboto",
+                                      fontSize: 15),
+                                )
+                              ],
+                            )),
+                )
+                //title: Text("Please wait..."),
+                ),
+          );
+        });
   }
 
   String? _errorText(SingleValueDropDownController sd) {

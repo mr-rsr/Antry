@@ -1,6 +1,7 @@
 // ignore: file_names
 //import 'dart:io';
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -12,9 +13,10 @@ import '../storage/sharedPreferences/TokenSp.dart';
 import '../storage/userLogin.dart';
 import '../storage/userRegister.dart';
 
-const String baseUrl = 'http://10.60.42.160:5252';
+const String baseUrl = 'http://10.60.42.1:5252';
 var isLoaded = false;
-final tokenSp=TokenSp();
+final tokenSp = TokenSp();
+
 class LoginRegister {
   final dio = Dio(BaseOptions(
     connectTimeout: 30000,
@@ -66,8 +68,7 @@ class LoginRegister {
       retrievedToken = LoginToken.fromJson(response.data);
       debugPrint(retrievedToken.token.toString());
       await tokenSp.addToken(retrievedToken.token.toString());
-      retrievedUser= await getUserData(retrievedToken);
-     
+      retrievedUser = await getUserData(retrievedToken);
     } on DioError catch (e) {
       debugPrint(e.message);
     }
@@ -83,6 +84,7 @@ class LoginRegister {
       Response response = await dio.get("/api/auth/student/decode");
       debugPrint(response.data.toString());
       retrievedUser = UserData.fromJson(response.data);
+      debugPrint(retrievedUser.toString());
       isLoaded = true;
     } on DioError catch (e) {
       debugPrint(e.message);

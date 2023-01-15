@@ -14,8 +14,18 @@ class DashBoard extends StatefulWidget {
 
 class _DashBoardState extends State<DashBoard> {
   @override
+  void dispose() {
+    final loginProvider =
+        Provider.of<LoginDataProvider>(context, listen: false);
+    debugPrint(loginProvider.data?.data?.fullname);
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final loginProvider = Provider.of<LoginDataProvider>(context,listen: false);
+    final loginProvider =
+        Provider.of<LoginDataProvider>(context, listen: false);
     return Scaffold(
       appBar: const PreferredSize(
           preferredSize: Size.fromHeight(300), child: CustomAppBar()),
@@ -27,11 +37,11 @@ class _DashBoardState extends State<DashBoard> {
           splashColor: Colors.grey,
           onPressed: () {
             Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const QrScanner(),
-                  ),
-                );
+              context,
+              MaterialPageRoute(
+                builder: (context) => const QrScanner(),
+              ),
+            );
           },
           child: const Icon(
             Icons.qr_code_scanner,
@@ -42,7 +52,7 @@ class _DashBoardState extends State<DashBoard> {
       ),
       body: Theme(
         data: ThemeData(
-          primaryColor:const Color(0xfff2735b),
+          primaryColor: const Color(0xfff2735b),
           colorScheme:
               ColorScheme.fromSwatch().copyWith(secondary: Colors.black),
         ),

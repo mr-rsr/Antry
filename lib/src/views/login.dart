@@ -37,12 +37,11 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-   
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.fromLTRB(8.0, 0, 8, 0),
-        child: ListView(      
+        child: ListView(
           children: <Widget>[
             const SizedBox(height: 10),
             const Padding(
@@ -83,11 +82,11 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                       unselectedLabelStyle: const TextStyle(fontSize: 15),
                       unselectedLabelColor: Colors.black54,
                       indicator: const BoxDecoration(
-                        color: Color(0xffff735b),    
+                        color: Color(0xffff735b),
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(10),
                             topRight: Radius.circular(10)),
-                      ),                   
+                      ),
                       labelColor: Colors.white,
                       controller: _tabController,
                       tabs: const <Widget>[
@@ -114,9 +113,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                   ),
                   Expanded(
                     child: Container(
-                      decoration: const BoxDecoration(
-                         
-                          ),
+                      decoration: const BoxDecoration(),
                       child: TabBarView(
                         physics: const NeverScrollableScrollPhysics(),
                         controller: _tabController,
@@ -137,7 +134,8 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
   }
 
   Widget studentlogin() {
-     final loginProvider = Provider.of<LoginDataProvider>(context,listen: false);
+    final loginProvider =
+        Provider.of<LoginDataProvider>(context, listen: false);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -157,7 +155,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
             },
             keyboardType: TextInputType.phone,
             controller: phoneController,
-            decoration: InputDecoration(   
+            decoration: InputDecoration(
               contentPadding: const EdgeInsets.all(16),
               labelText: "Phone Number",
               border: OutlineInputBorder(
@@ -192,7 +190,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
           TextFormField(
             controller: passController,
             obscureText: !isPassVisible,
-            decoration: InputDecoration(  
+            decoration: InputDecoration(
               contentPadding: const EdgeInsets.all(16),
               labelText: "Password",
               border: OutlineInputBorder(
@@ -232,12 +230,13 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
           ),
           ElevatedButton(
             onPressed: () {
-              setState(() {    
+              setState(() {
                 if (phoneController.text.length == 10) {
-                 loginProvider.getUserData(UserLogin(
+                  loginProvider.getUserData(UserLogin(
                       contactno: phoneController.text,
                       rollid: passController.text));
                   debugPrint(phoneController.text);
+
                   debugPrint(passController.text);
                   Navigator.push(
                     context,
@@ -314,7 +313,8 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
   }
 
   Widget visitorlogin() {
-    final loginProvider = Provider.of<LoginDataProvider>(context,listen: false);
+    final loginProvider =
+        Provider.of<LoginDataProvider>(context, listen: false);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -333,7 +333,6 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
             controller: visitorname,
             textInputAction: TextInputAction.next,
             decoration: InputDecoration(
-              
               contentPadding: const EdgeInsets.all(16),
               labelText: "Name",
               border: OutlineInputBorder(
@@ -365,7 +364,6 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
           const SizedBox(
             height: 20,
           ),
-
           TextFormField(
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -380,7 +378,6 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
             controller: visitorPhoneController,
             textInputAction: TextInputAction.next,
             decoration: InputDecoration(
-              
               contentPadding: const EdgeInsets.all(16),
               labelText: "Phone Number",
               border: OutlineInputBorder(
@@ -417,7 +414,6 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
             keyboardType: TextInputType.streetAddress,
             textInputAction: TextInputAction.done,
             decoration: InputDecoration(
-              
               contentPadding: const EdgeInsets.all(16),
               labelText: "City",
               border: OutlineInputBorder(
