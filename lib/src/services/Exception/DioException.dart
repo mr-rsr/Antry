@@ -45,6 +45,8 @@ class DioException implements Exception {
         return 'The requested resource does not exist.';
       case 405:
         return 'Method not allowed. Please check the Allow header for the allowed HTTP methods.';
+      case 409:
+        return 'Already Registered.';
       case 415:
         return 'Unsupported media type. The requested content type or version number is invalid.';
       case 422:

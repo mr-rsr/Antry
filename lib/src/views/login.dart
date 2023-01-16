@@ -232,9 +232,11 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
             onPressed: () {
               setState(() {
                 if (phoneController.text.length == 10) {
-                  loginProvider.getUserData(UserLogin(
-                      contactno: phoneController.text,
-                      rollid: passController.text));
+                  loginProvider.getUserData(
+                      UserLogin(
+                          contactno: phoneController.text,
+                          rollid: passController.text),
+                      context);
                   debugPrint(phoneController.text);
 
                   debugPrint(passController.text);
@@ -451,9 +453,11 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
               setState(() {
                 if (_formKey.currentState!.validate() ||
                     phoneController.text.length == 10) {
-                  loginProvider.getUserData(UserLogin(
-                      contactno: phoneController.text,
-                      rollid: passController.text));
+                  loginProvider.getUserData(
+                      UserLogin(
+                          contactno: phoneController.text,
+                          rollid: passController.text),
+                      context);
                   debugPrint(phoneController.text);
                   debugPrint(passController.text);
                 }

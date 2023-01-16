@@ -32,13 +32,11 @@ class _SplashScreen extends State<SplashScreen> {
             builder: (context) {
           debugPrint(token.toString());
           // ignore: unrelated_type_equality_checks
-          return const DashBoard();
+          return const Register();
         }));
       });
       return token;
-    }
-    else 
-    {
+    } else {
       Future.delayed(Duration(seconds: splashtime), () async {
         Navigator.pushReplacement(context, MaterialPageRoute(
             //pushReplacement = replacing the route so that
@@ -54,8 +52,7 @@ class _SplashScreen extends State<SplashScreen> {
 
   @override
   void initState() {
-    
-checkTokenAvailability();
+    checkTokenAvailability();
     super.initState();
   }
 

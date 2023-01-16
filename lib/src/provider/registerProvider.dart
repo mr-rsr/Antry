@@ -17,23 +17,25 @@ class RegisterProvider extends ChangeNotifier {
 
   getRegisterData(UserRegister userRegister, BuildContext context) async {
     loading = true;
-    showDialogBox(context);
-    data = (await register.createUser(userRegister));
+    //showDialogBox(context);
+    data = (await register.createUser(userRegister, context));
     loading = false;
+    notifyListeners();
+    // ignore: use_build_context_synchronously
     Navigator.pop(context);
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const Login(),
-      ),
-    );
+    if (data != null) {
+      // ignore: use_build_context_synchronously
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const Login(),
+        ),
+      );
+    }
     notifyListeners();
   }
 
   showDialogBox(BuildContext context) {
-    final registerProvider =
-        Provider.of<RegisterProvider>(context, listen: false);
     return showDialog(
         barrierDismissible: false,
         context: context,
@@ -44,47 +46,25 @@ class RegisterProvider extends ChangeNotifier {
                 child: AlertDialog(
                   backgroundColor: const Color(0xffeeeded),
                   icon: Center(
-                      child: registerProvider.loading == true
-                          ? Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: const [
-                                CircularProgressIndicator(
-                                  color: Color(0xfff2735b),
-                                ),
-                                SizedBox(
-                                  width: 30,
-                                ),
-                                Text(
-                                  "Registering...",
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontFamily: "Roboto",
-                                      fontSize: 15),
-                                )
-                              ],
-                            )
-                          : Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: const [
-                                Icon(
-                                  Icons.check_circle,
-                                  color: Color(0xfff2735b),
-                                  size: 30,
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Text(
-                                  "Succesfully Registered",
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontFamily: "Roboto",
-                                      fontSize: 15),
-                                )
-                              ],
-                            )),
+                      child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: const [
+                      CircularProgressIndicator(
+                        color: Color(0xfff2735b),
+                      ),
+                      SizedBox(
+                        width: 30,
+                      ),
+                      Text(
+                        "Registering...",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: "Roboto",
+                            fontSize: 15),
+                      )
+                    ],
+                  )),
                 )
                 //title: Text("Please wait..."),
                 ),
