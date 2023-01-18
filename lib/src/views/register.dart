@@ -5,11 +5,11 @@ import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:provider/provider.dart';
 import '../components/tField.dart';
 import '../provider/registerProvider.dart';
-import '../services/network/loginRegister.dart';
+import '../services/network/loginApiCall.dart';
 import '../services/storage/userRegister.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-LoginRegister register = LoginRegister();
+LoginApi register = LoginApi();
 
 class Register extends StatefulWidget {
   const Register({super.key});

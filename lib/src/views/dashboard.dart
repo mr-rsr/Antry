@@ -1,7 +1,6 @@
 import 'package:antry/src/views/qrScanner.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../components/customAppBar_dashboard.dart';
 import '../provider/loginProvider.dart';
 
@@ -15,10 +14,9 @@ class DashBoard extends StatefulWidget {
 class _DashBoardState extends State<DashBoard> {
   @override
   void dispose() {
-    final loginProvider =
-        Provider.of<LoginDataProvider>(context, listen: false);
-    debugPrint(loginProvider.data?.data?.fullname);
-    // TODO: implement dispose
+    //final loginProvider =
+    // Provider.of<LoginDataProvider>(context, listen: false);
+    //  debugPrint(loginProvider.data?.data?.fullname);
     super.dispose();
   }
 

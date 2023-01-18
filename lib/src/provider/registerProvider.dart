@@ -1,29 +1,27 @@
-// import 'package:antry/src/models/UserData.dart';
-// import 'package:antry/src/views/login.dart';
-import 'dart:async';
-
-import 'package:antry/src/services/storage/userRegister.dart';
+// ignore: file_names
+import 'package:antry/src/components/DialogBox.dart';
+import 'package:antry/src/services/storage/userRegister.dart' show UserRegister;
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
-
 import '../models/user.dart';
-import '../services/network/loginRegister.dart';
+import '../services/network/registerApiCall.dart';
 import '../views/login.dart';
 
+DialogBox dialoBox = DialogBox();
+
 class RegisterProvider extends ChangeNotifier {
-  final register = LoginRegister();
+  final register = RegisterApi();
   User? data;
   bool loading = false;
 
   getRegisterData(UserRegister userRegister, BuildContext context) async {
     loading = true;
-    //showDialogBox(context);
     data = (await register.createUser(userRegister, context));
     loading = false;
     notifyListeners();
     // ignore: use_build_context_synchronously
-    Navigator.pop(context);
-    if (data != null) {
+    if (register.token!.success == true) {
       // ignore: use_build_context_synchronously
       Navigator.push(
         context,
@@ -31,44 +29,18 @@ class RegisterProvider extends ChangeNotifier {
           builder: (context) => const Login(),
         ),
       );
+      Fluttertoast.showToast(
+          msg: "Registered Successfully",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.black,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    } else {
+      // ignore: use_build_context_synchronously
+      dialoBox.showDialogBox(
+          context, "Something Went Wrong! \n Log In later", Icons.error);
     }
-    notifyListeners();
-  }
-
-  showDialogBox(BuildContext context) {
-    return showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (context) {
-          return Center(
-            child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: AlertDialog(
-                  backgroundColor: const Color(0xffeeeded),
-                  icon: Center(
-                      child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: const [
-                      CircularProgressIndicator(
-                        color: Color(0xfff2735b),
-                      ),
-                      SizedBox(
-                        width: 30,
-                      ),
-                      Text(
-                        "Registering...",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: "Roboto",
-                            fontSize: 15),
-                      )
-                    ],
-                  )),
-                )
-                //title: Text("Please wait..."),
-                ),
-          );
-        });
   }
 }

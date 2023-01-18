@@ -1,4 +1,4 @@
-import 'package:antry/src/services/network/loginRegister.dart';
+import 'package:antry/src/services/network/loginApiCall.dart';
 import 'package:antry/src/services/storage/sharedPreferences/TokenSp.dart';
 import 'package:antry/src/views/dashBoard.dart';
 import 'package:antry/src/views/register.dart';
@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'login.dart';
 
 final TokenSp tokenSp = TokenSp();
-LoginRegister register = LoginRegister();
+LoginApi register = LoginApi();
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

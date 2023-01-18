@@ -10,8 +10,8 @@ class Profile extends StatefulWidget {
   State<Profile> createState() => _ProfileState();
 }
 
-var firstName = TextEditingController();
-var lastName = TextEditingController();
+var name = TextEditingController();
+//var lastName = TextEditingController();
 var phoneControl = TextEditingController();
 var rollControl = TextEditingController();
 var courseControl = TextEditingController();
@@ -22,11 +22,11 @@ class _ProfileState extends State<Profile> {
   @override
   initState() {
     super.initState();
-    firstName.addListener(() {
+    name.addListener(() {
       setState(() {});
     });
-    firstName.text = 'Raj';
-    lastName.text = 'Aryan';
+    name.text = 'Raj Aryan';
+    // lastName.text = 'Aryan';
     phoneControl.text = '6299241363';
     rollControl.text = '01ug20020039';
     courseControl.text = 'B.Tech';
@@ -75,23 +75,34 @@ class _ProfileState extends State<Profile> {
                       Padding(
                         padding: const EdgeInsets.only(top: 0, right: 0),
                         child: TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const Login(),
-                  ),
-                );
-                          },
-                          child: const Text(
-                            'Logout',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              //fontWeight: FontWeight.w500
-                            ),
-                          ),
-                        ),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const Login(),
+                                ),
+                              );
+                            },
+                            child: Row(
+                              children: const [
+                                Text(
+                                  'Logout',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Icon(
+                                  Icons.logout,
+                                  color: Colors.white,
+                                  size: 20,
+                                ),
+                              ],
+                            )),
                       ),
                     ],
                   ),
@@ -139,31 +150,31 @@ class _ProfileState extends State<Profile> {
                       ),
                     ),
                     const SizedBox(
-                      height: 30,
+                      height: 40,
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 8.0, bottom: 8),
                       child: SizedBox(
                         height: 50,
                         child: ProfileTfield(
-                          controller: firstName,
-                          label: 'First Name',
+                          controller: name,
+                          label: 'Name',
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8.0, bottom: 8),
-                      child: SizedBox(
-                        height: 50,
-                        child: ProfileTfield(
-                          controller: lastName,
-                          label: 'Last Name',
-                        ),
-                      ),
-                    ),
+                    // const SizedBox(
+                    //   width: 20,
+                    // ),
+                    // Padding(
+                    //   padding: const EdgeInsets.only(top: 8.0, bottom: 8),
+                    //   child: SizedBox(
+                    //     height: 50,
+                    //     child: ProfileTfield(
+                    //       controller: lastName,
+                    //       label: 'Last Name',
+                    //     ),
+                    //   ),
+                    // ),
                     const SizedBox(
                       width: 20,
                     ),
@@ -233,7 +244,7 @@ class _ProfileState extends State<Profile> {
                           ),
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),

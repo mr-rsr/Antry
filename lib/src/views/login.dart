@@ -3,7 +3,7 @@ import 'package:antry/src/views/register.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../provider/loginProvider.dart';
-import '../services/network/loginRegister.dart';
+import '../services/network/loginApiCall.dart';
 import '../services/storage/userLogin.dart';
 
 class Login extends StatefulWidget {
@@ -12,7 +12,7 @@ class Login extends StatefulWidget {
   State<Login> createState() => _LoginState();
 }
 
-LoginRegister loginRegister = LoginRegister();
+LoginApi loginRegister = LoginApi();
 
 class _LoginState extends State<Login> with TickerProviderStateMixin {
   final phoneController = TextEditingController();
@@ -240,12 +240,6 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                   debugPrint(phoneController.text);
 
                   debugPrint(passController.text);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const DashBoard(),
-                    ),
-                  );
                 }
               });
             },
