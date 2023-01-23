@@ -22,8 +22,7 @@ class _DashBoardState extends State<DashBoard> {
 
   @override
   Widget build(BuildContext context) {
-    final loginProvider =
-        Provider.of<LoginDataProvider>(context, listen: false);
+  
     return Scaffold(
       appBar: const PreferredSize(
           preferredSize: Size.fromHeight(300), child: CustomAppBar()),

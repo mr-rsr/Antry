@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:antry/src/components/DialogBox.dart';
+import 'package:antry/src/models/UserData.dart';
 import 'package:antry/src/models/loginToken.dart';
 import 'package:antry/src/services/Exception/DioException.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import '../../models/user.dart';
 import '../storage/sharedPreferences/TokenSp.dart';
 import '../storage/sharedPreferences/UserDataSp.dart';
 import '../storage/userLogin.dart';
@@ -35,7 +35,7 @@ class RegisterApi {
 //http://10.36.124.78:5252 innovation
 
 //register api
-  Future<User?> createUser(
+  Future<UserData?> createUser(
       UserRegister userRegister, BuildContext context) async {
     isLoaded = false;
     Map data = {
@@ -46,13 +46,13 @@ class RegisterApi {
       "semester": userRegister.semester,
       "contactNo": userRegister.contact,
     };
-    User? retrievedUser;
+    UserData? retrievedUser;
     try {
       loadingDialogBox.showDialogBox(context, "Registering...");
       Response response =
           await dio.post('/api/auth/student/register', data: data);
       debugPrint(response.data.toString());
-      retrievedUser = User.fromJson(response.data);
+      retrievedUser = UserData.fromJson(response.data);
       await userSp.addUser(response.data.toString());
       // direect signin
       UserLogin userLogin = UserLogin(

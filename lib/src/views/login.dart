@@ -138,172 +138,180 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
         Provider.of<LoginDataProvider>(context, listen: false);
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: <Widget>[
-          const SizedBox(
-            height: 50,
-          ),
-          TextFormField(
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter phone number';
-              }
-              if (value.length < 10) {
-                return 'Please enter valid phone number';
-              }
-              return null;
-            },
-            keyboardType: TextInputType.phone,
-            controller: phoneController,
-            decoration: InputDecoration(
-              contentPadding: const EdgeInsets.all(16),
-              labelText: "Phone Number",
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              prefixIcon: const Icon(
-                Icons.call,
-                color: Color.fromARGB(255, 128, 127, 127),
-              ),
-              suffixIcon: phoneController.text.isEmpty
-                  ? Container(
-                      width: 0,
-                    )
-                  : IconButton(
-                      onPressed: () => phoneController.clear(),
-                      icon: const Icon(
-                        Icons.close,
-                        color: Color.fromARGB(255, 128, 127, 127),
-                      )),
-              labelStyle: const TextStyle(
-                color: Color.fromARGB(255, 128, 127, 127),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: const BorderSide(color: Colors.black),
-              ),
+      child: Form(
+        child: Column(
+          children: <Widget>[
+            const SizedBox(
+              height: 50,
             ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          TextFormField(
-            controller: passController,
-            obscureText: !isPassVisible,
-            decoration: InputDecoration(
-              contentPadding: const EdgeInsets.all(16),
-              labelText: "Password",
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              prefixIcon: const Icon(
-                Icons.lock,
-                color: Color.fromARGB(255, 128, 127, 127),
-              ),
-              suffixIcon: IconButton(
-                  onPressed: () {
-                    setState(() {
-                      isPassVisible = !isPassVisible;
-                    });
-                  },
-                  icon: isPassVisible
-                      ? const Icon(
-                          Icons.visibility_off,
-                          color: Color.fromARGB(255, 128, 127, 127),
-                          size: 28,
-                        )
-                      : const Icon(
-                          Icons.visibility,
+            TextFormField(
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter phone number';
+                }
+                if (value.length < 10) {
+                  return 'Please enter valid phone number';
+                }
+                return null;
+              },
+              keyboardType: TextInputType.phone,
+              controller: phoneController,
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.all(16),
+                labelText: "Phone Number",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                prefixIcon: const Icon(
+                  Icons.call,
+                  color: Color.fromARGB(255, 128, 127, 127),
+                ),
+                suffixIcon: phoneController.text.isEmpty
+                    ? Container(
+                        width: 0,
+                      )
+                    : IconButton(
+                        onPressed: () => phoneController.clear(),
+                        icon: const Icon(
+                          Icons.close,
                           color: Color.fromARGB(255, 128, 127, 127),
                         )),
-              labelStyle: const TextStyle(
-                color: Color.fromARGB(255, 128, 127, 127),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: const BorderSide(color: Colors.black),
+                labelStyle: const TextStyle(
+                  color: Color.fromARGB(255, 128, 127, 127),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: const BorderSide(color: Colors.black),
+                ),
               ),
             ),
-          ),
-          const SizedBox(
-            height: 35,
-          ),
-          ElevatedButton(
-            onPressed: () {
-              setState(() {
-                if (phoneController.text.length == 10) {
-                  loginProvider.getUserData(
-                      UserLogin(
-                          contactno: phoneController.text,
-                          rollid: passController.text),
-                      context);
-                  debugPrint(phoneController.text);
-
-                  debugPrint(passController.text);
+            const SizedBox(
+              height: 20,
+            ),
+            TextFormField(
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter password';
                 }
-              });
-            },
-            style: ButtonStyle(
-              minimumSize: MaterialStateProperty.all<Size>(
-                const Size(double.infinity, 40),
-              ),
-              maximumSize: MaterialStateProperty.all<Size>(
-                const Size(double.infinity, 50),
-              ),
-              backgroundColor: MaterialStateProperty.all(
-                const Color(0xffff735b),
-              ),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
+                if (value.length < 6) {
+                  return 'Password must be atleast 6 characters';
+                }
+                return null;
+              },
+              controller: passController,
+              obscureText: !isPassVisible,
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.all(16),
+                labelText: "Password",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                prefixIcon: const Icon(
+                  Icons.lock,
+                  color: Color.fromARGB(255, 128, 127, 127),
+                ),
+                suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        isPassVisible = !isPassVisible;
+                      });
+                    },
+                    icon: isPassVisible
+                        ? const Icon(
+                            Icons.visibility_off,
+                            color: Color.fromARGB(255, 128, 127, 127),
+                            size: 28,
+                          )
+                        : const Icon(
+                            Icons.visibility,
+                            color: Color.fromARGB(255, 128, 127, 127),
+                          )),
+                labelStyle: const TextStyle(
+                  color: Color.fromARGB(255, 128, 127, 127),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: const BorderSide(color: Colors.black),
                 ),
               ),
             ),
-            child: const Center(
-              child: Text(
-                "Login",
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+            const SizedBox(
+              height: 35,
             ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const Text(
-                "Don't have an account?",
-                style: TextStyle(
-                  color: Colors.black,
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  if (phoneController.text.length == 10) {
+                    loginProvider.getUserData(
+                        UserLogin(
+                            contactno: phoneController.text,
+                            rollid: passController.text),
+                        context);
+                  }
+                });
+              },
+              style: ButtonStyle(
+                minimumSize: MaterialStateProperty.all<Size>(
+                  const Size(double.infinity, 40),
+                ),
+                maximumSize: MaterialStateProperty.all<Size>(
+                  const Size(double.infinity, 50),
+                ),
+                backgroundColor: MaterialStateProperty.all(
+                  const Color(0xffff735b),
+                ),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
                 ),
               ),
-              TextButton(
-                onPressed: () {
-                  setState(() {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const Register(),
-                      ),
-                    );
-                  });
-                },
-                child: const Text(
-                  "Register",
+              child: const Center(
+                child: Text(
+                  "Login",
                   style: TextStyle(
-                    color: Colors.black,
+                    fontSize: 18,
+                    color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
-            ],
-          ),
-        ],
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                const Text(
+                  "Don't have an account?",
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    setState(() {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Register(),
+                        ),
+                      );
+                    });
+                  },
+                  child: const Text(
+                    "Register",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

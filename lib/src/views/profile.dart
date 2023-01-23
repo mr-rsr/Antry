@@ -1,7 +1,11 @@
 import 'package:antry/src/views/login.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../components/profile_tfield.dart';
+import '../models/UserData.dart';
+import '../provider/loginProvider.dart';
+import '../provider/registerProvider.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -25,17 +29,29 @@ class _ProfileState extends State<Profile> {
     name.addListener(() {
       setState(() {});
     });
-    name.text = 'Raj Aryan';
-    // lastName.text = 'Aryan';
-    phoneControl.text = '6299241363';
-    rollControl.text = '01ug20020039';
-    courseControl.text = 'B.Tech';
-    branchControl.text = 'CSE';
-    semesterControl.text = '5';
   }
 
   @override
   Widget build(BuildContext context) {
+    final loginProvider = Provider.of<LoginDataProvider>(context);
+    final registerProvider = Provider.of<RegisterProvider>(context);
+    final UserData? userLogin = registerProvider.data;
+    final UserData? userRegister = loginProvider.data;
+    name.text =
+        userLogin?.data?.fullname ?? userRegister?.data?.fullname ?? 'Error';
+    // lastName.text = 'Aryan';
+    phoneControl.text =
+        userLogin?.data?.contactno ?? userRegister?.data?.contactno ?? 'Error';
+    rollControl.text =
+        userLogin?.data?.rollno ?? userRegister?.data?.rollno ?? 'Error';
+    courseControl.text =
+        userLogin?.data?.course ?? userRegister?.data?.course ?? 'Error';
+    branchControl.text =
+        userLogin?.data?.branch ?? userRegister?.data?.branch ?? 'Error';
+    semesterControl.text = userLogin?.data?.semester.toString() ??
+        userRegister?.data?.semester.toString() ??
+        'Error';
+
     return Scaffold(
       backgroundColor: Colors.white70,
       body: Stack(
@@ -71,40 +87,40 @@ class _ProfileState extends State<Profile> {
                     toolbarHeight: 150,
                     backgroundColor: Colors.transparent,
                     elevation: 0,
-                    actions: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 0, right: 0),
-                        child: TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const Login(),
-                                ),
-                              );
-                            },
-                            child: Row(
-                              children: const [
-                                Text(
-                                  'Logout',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Icon(
-                                  Icons.logout,
-                                  color: Colors.white,
-                                  size: 20,
-                                ),
-                              ],
-                            )),
-                      ),
-                    ],
+                    // actions: [
+                    //   Padding(
+                    //     padding: const EdgeInsets.only(top: 0, right: 0),
+                    //     child: TextButton(
+                    //         onPressed: () {
+                    //           Navigator.push(
+                    //             context,
+                    //             MaterialPageRoute(
+                    //               builder: (context) => const Login(),
+                    //             ),
+                    //           );
+                    //         },
+                    //         child: Row(
+                    //           children: const [
+                    //             Text(
+                    //               'Logout',
+                    //               style: TextStyle(
+                    //                 color: Colors.white,
+                    //                 fontSize: 20,
+                    //                 fontWeight: FontWeight.w500,
+                    //               ),
+                    //             ),
+                    //             SizedBox(
+                    //               width: 5,
+                    //             ),
+                    //             Icon(
+                    //               Icons.logout,
+                    //               color: Colors.white,
+                    //               size: 20,
+                    //             ),
+                    //           ],
+                    //         )),
+                    //   ),
+                    // ],
                   ),
                 ),
                 const Padding(
@@ -141,16 +157,16 @@ class _ProfileState extends State<Profile> {
                     const Padding(
                       padding: EdgeInsets.only(top: 8.0, bottom: 8),
                       child: Text(
-                        'Raj Aryan',
+                        'Personal Details',
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 25,
-                          fontWeight: FontWeight.w400,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
                     const SizedBox(
-                      height: 40,
+                      height: 20,
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 8.0, bottom: 8),
@@ -243,6 +259,49 @@ class _ProfileState extends State<Profile> {
                             ),
                           ),
                         ],
+                      ),
+                    ),
+                    //logout button
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0, bottom: 8),
+                      child: SizedBox(
+                        height: 50,
+                        width: 250,
+                        child: OutlinedButton(
+                          onPressed: () {
+                            setState(() {
+                              Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const Login(),
+                                ),
+                                (route) => false,
+                              );
+                            });
+                          },
+                          style: OutlinedButton.styleFrom(
+                            //elevation: 2,
+                            //backgroundColor: Colors.red,
+                            side: const BorderSide(
+                              color: Color(0xffff735b),
+                              width: 1,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          child: const Text(
+                            'Logout',
+                            style: TextStyle(
+                              color: Color(0xffff735b),
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ],

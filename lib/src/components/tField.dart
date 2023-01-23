@@ -7,12 +7,14 @@ class Tfield extends StatelessWidget {
     required this.label,
     this.hint,
     this.keyboardType,
+    this.validator,
   });
 
   final TextEditingController controller;
   final String label;
   final String? hint;
   final TextInputType? keyboardType;
+  final VoidCallback? validator; 
 
   @override
   Widget build(BuildContext context) {

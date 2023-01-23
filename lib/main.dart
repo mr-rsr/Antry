@@ -5,7 +5,6 @@ import 'package:antry/src/views/login.dart';
 import 'package:antry/src/views/profile.dart';
 import 'package:antry/src/views/splash.dart';
 import 'package:antry/src/views/register.dart';
-import 'package:antry/src/views/tab.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -24,7 +23,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       title: 'Antry',
       debugShowCheckedModeBanner: false,
-      home: Profile(),
+      home: Login(),
     );
   }
 }

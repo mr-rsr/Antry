@@ -1,8 +1,13 @@
-import 'package:antry/src/models/user.dart';
+import 'dart:math';
+
+import 'package:antry/src/models/UserData.dart';
+import 'package:antry/src/provider/registerProvider.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/loginProvider.dart';
+
 import '../views/profile.dart';
 import 'bottom_curve_cipper.dart';
 
@@ -14,6 +19,9 @@ class CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final loginProvider = Provider.of<LoginDataProvider>(context);
+    final registerProvider = Provider.of<RegisterProvider>(context);
+    final UserData? userLogin = registerProvider.data;
+    final UserData? userRegister = loginProvider.data;
     return ClipPath(
       clipper: MyClipper(),
       child: Container(
@@ -71,23 +79,26 @@ class CustomAppBar extends StatelessWidget {
                 ),
               ),
             ),
-             const Padding(
-              padding: EdgeInsets.only(top: 20.0),
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0),
               child: Text(
-                //loginProvider.fullname,
-                "Raj Aryan",
-                style:TextStyle(
+                userLogin?.data?.fullname ??
+                    userRegister?.data?.fullname ??
+                    'Something went wrong',
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.only(top: 10.0),
+            Padding(
+              padding: const EdgeInsets.only(top: 10.0),
               child: Text(
-                '01UG20020039',
-                style: TextStyle(
+                userLogin?.data?.rollno ??
+                    userRegister?.data?.rollno ??
+                    'Error',
+                style: const TextStyle(
                   color: Colors.white70,
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
